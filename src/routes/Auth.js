@@ -1,5 +1,6 @@
 import React from "react";
 import { authService, firebaseInstance } from "fbase";
+import '../index';
 
 const Auth = () => {
   const onSocialClick = async (event) => {
@@ -15,12 +16,15 @@ const Auth = () => {
 
   return (
     <div>
-
+      <div className="outer">
+        <div className = "inner">
       <div>
-        <button onClick={onSocialClick} name="google">
+        <button onClick={onSocialClick} name="google" className = "google">
           Continue with Google
         </button>
       </div>
+    </div>
+    </div>
     </div>
   );
 };

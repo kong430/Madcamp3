@@ -1,17 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import '../index'
+import Profile from "routes/Profile";
 
 const Navigation = ({ userObj }) => (
-  <nav>
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
-      </li>
-      <li>
-        <Link to="/profile">{userObj.displayName}My Profile</Link>
-      </li>
+  <div class = "wrapper">
+  <nav className = "nav">
+    <ul className = "menu">
+      <li><Link to="/" class = "menuLink">Home</Link></li>
+      <li><Link to="/profile" class = "menuLink">{userObj.displayName} 's Profile</Link></li>
     </ul>
-  </nav>
+  </nav> 
+  </div> 
 );
 
 export default Navigation;
