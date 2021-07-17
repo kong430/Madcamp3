@@ -15,7 +15,7 @@ const Factory = ({ userObj }) => {
 
   const onSubmit = async (event) => {
     event.preventDefault();
-    // 폴더명(=유저아이디)/이미지이름
+    // 폴더명(=유저아이zz디)/이미지이름
     let attachmentUrl = "";
 
     if (attachment !== "") {

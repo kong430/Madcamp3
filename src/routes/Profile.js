@@ -29,21 +29,8 @@ export default ({ userObj, refreshUser }) => {
     } = event;
     setNewDisplayName(value);
   };
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    if (userObj.displayName !== newDisplayName) {
-      await userObj.updateProfile({
-        displayName: newDisplayName,
-      });
-      refreshUser();
-    }
-  };
   return (
     <>
-      <form onSubmit={onSubmit}>
-        <input type="text" placeholder="Display name" onChange={onChange} />
-        <input type="submit" value="Update Profile" />
-      </form>
       <button onClick={onLogoutClick}>Log Out</button>
     </>
   );

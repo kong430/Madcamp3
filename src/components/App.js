@@ -40,7 +40,6 @@ function App() {
       ) : (
         "loading..."
       )}
-      <footer>&copy; {new Date().getFullYear()} Mobintouch</footer>
     </>
   );
 }

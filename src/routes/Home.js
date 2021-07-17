@@ -6,7 +6,7 @@ import Factory from "components/Factory";
 const Home = ({ userObj }) => {
   const [list, setList] = useState([]);
 
-  useEffect(() => {
+  /**useEffect(() => {
     dbService.collection("career").onSnapshot((snapshot) => {
       const careerArray = snapshot.docs.map((doc) => ({
         id: doc.id,
@@ -14,7 +14,7 @@ const Home = ({ userObj }) => {
       }));
       setList(careerArray);
     });
-  }, []);
+  }, []);*/
 
   return (
     <div>
