@@ -22,10 +22,9 @@
 }
 
 .square {
-  vertical-align: top;
-  text-align: right;
   border-radius: 5px;
   background-color:gray;
   border:0px;
   outline:0px;
+  transition: 0.7s
 }

@@ -10,10 +10,8 @@ export default ({ userObj, refreshUser }) => {
 
   return (
     <>
-      <div>
       <button onClick={onLogoutClick} className = "LogOut">Log Out</button>
-      </div>
-      <Calendardraw/>
+      <Calendardraw> </Calendardraw>
       
     </>
   );

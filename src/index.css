@@ -10,6 +10,7 @@ body {
   background: #12c2e9;  /* fallback for old browsers */
   background: -webkit-linear-gradient(to right, #e9fff2, #e9fff2, #e9fff2);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #e9fff2, #e9fff2, #e9fff2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family:sans-serif;
 }
 
 body, html, .App, #root, .outer {
@@ -131,4 +132,72 @@ body, html, .App, #root, .outer {
   border: none;
   outline: none;
   cursor: pointer;
+} 
+
+.calendar{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+  font-weight: bold;
+}
+
+.textbox{
+  position: absolute;
+  width: 800px;
+  height: 400px;
+  top: 50%;
+  left: 50%;
+  margin-left: -400px;
+  margin-top: -100px;
+  border: none;
+  outline: none;
+  font-size: 20px;
+  overflow: visible;
+  resize: none;
+  text-overflow: ellipsis;
+}
+
+.submit{
+  position: absolute;
+  width: 800px;
+  height: 30px;
+  top: 50%;
+  left: 50%;
+  margin-left: -400px;
+  margin-top: 300px;
+  border-color:rgb(156, 219, 197);
+  border-style:dotted;
+  background-color:#ffffff;
+  outline: none;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.question{
+  display: block;
+  font-size: 2em;
+  margin: 200px 0px 0px 0px;
+  font-weight: bold;
+  text-align: center;
+  animation: fadein 3s;
+}
+
+@keyframes fadein {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadein { /* Safari and Chrome */
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
 }
