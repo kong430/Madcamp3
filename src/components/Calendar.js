@@ -25,8 +25,8 @@ function Square(props) {
     const opacity = props.condition=='this'?1:0.2;
 
     return (
-      <button className="square" style={{width:'140px',height:'100px', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
-          <div style={{width:'100px',height:'65px', textAlign:'right'}}>
+      <button className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
+          <div style={{width:'6.5vw',height:'8vh', textAlign:'right'}}>
             {props.value}
           </div>
       </button>
