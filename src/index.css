@@ -110,6 +110,7 @@ body, html, .App, #root, .outer {
   font-weight: bold;     
   display: inline-block;
   text-align: center;
+  margin-top: 10px;
         
 }
 
@@ -120,7 +121,7 @@ body, html, .App, #root, .outer {
 .LogOut{
   background-color: #ffffff;
   position: fixed;
-  top : 2px;
+  top : 10px;
   left : 1800px;
   right : 100px;
   font-size: 15px;                       

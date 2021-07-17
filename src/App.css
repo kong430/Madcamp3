@@ -20,3 +20,12 @@
 .App-link {
   color: #09d3ac;
 }
+
+.square {
+  vertical-align: top;
+  text-align: right;
+  border-radius: 5px;
+  background-color:gray;
+  border:0px;
+  outline:0px;
+}
