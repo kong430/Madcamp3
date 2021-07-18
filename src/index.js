@@ -4,8 +4,10 @@ import App from "./components/App";
 import "./index.css";
 
 ReactDOM.render(
+  <div>
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
+  </React.StrictMode>
+  </div>,
   document.getElementById("root")
 );

@@ -1,6 +1,11 @@
 import React from "react";
 import '../App.css';
 import '../index.css';
+import { storageService } from "fbase";
+import { firebaseInstance } from "fbase";
+import firebase, { firestore } from "firebase";
+import App from "./App";
+import { dbService } from "fbase";
 
 function Square(props) {
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
@@ -25,8 +30,8 @@ function Square(props) {
     const opacity = props.condition=='this'?1:0.2;
 
     return (
-      <button className="square" style={{width:'140px',height:'100px', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
-          <div style={{width:'100px',height:'65px', textAlign:'right'}}>
+      <button className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
+          <div style={{width:'6.5vw',height:'8vh', textAlign:'right'}}>
             {props.value}
           </div>
       </button>
@@ -35,7 +40,6 @@ function Square(props) {
   
 class Calendar extends React.Component {
     renderSquare(i) {
-        console.log(this.props.emodatalist[i].score)
         return (
             <Square value={this.props.datelist[i]} condition={this.props.conditionlist[i]} emodata={this.props.emodatalist[i]}/>      
         );
@@ -59,6 +63,8 @@ class Calendar extends React.Component {
 export default class Calendardraw extends React.Component{
     constructor(props) {
         super(props);
+        console.log("CONSTRUCTOR!!!!!!!!!!!!!");
+
         const date = new Date();
         const viewYear = date.getFullYear();
         const viewMonth = date.getMonth();
@@ -69,6 +75,7 @@ export default class Calendardraw extends React.Component{
           month : viewMonth,
           year : viewYear,
         }
+        console.log(typeof(this.state));
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
     };
@@ -92,6 +99,7 @@ export default class Calendardraw extends React.Component{
     }
 
     setDate() {
+        console.log("SETDATE!!!!!!!!!!!!!");
         const viewYear = this.state.year
         const viewMonth = this.state.month
     
@@ -133,10 +141,16 @@ export default class Calendardraw extends React.Component{
                             ? 'this'
                             : 'other';
             this.state.datelist[i]=date
+            console.log("datatlist" + typeof(date));
             this.state.conditionlist[i]=condition
+            
             //임의로 값 넣는부분
             const score = 1-Math.random()*2
             this.state.emodatalist[i]={text:'hello',score:score, magnitude:1}
+            
+            /**console.log(userData.emodataList.findIndex
+            (d=>d.year === this.state.year && d.month === this.state.month && d.day === i));
+            */
             }
         )
     }
@@ -146,18 +160,16 @@ export default class Calendardraw extends React.Component{
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
                     <button onClick={this.prevpress} style={{width:'60px', height:'30px', marginRight:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px'}}>
+                border:'0px', cursor: "pointer"}}>
                         Prev
                     </button>
                     {this.state.year}년 {this.state.month+1}월
                     <button onClick={this.nextpress} style={{width:'60px', height:'30px', marginLeft:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px'}}>
+                border:'0px', cursor: "pointer"}}>
                         Next
                     </button>
                 </div>
-                <dispatchEvent>
                 <Calendar datelist={this.state.datelist} conditionlist={this.state.conditionlist} emodatalist={this.state.emodatalist}/>
-                </dispatchEvent>
             </div>
         )
     }

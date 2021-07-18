@@ -11,6 +11,7 @@ body {
   background: -webkit-linear-gradient(to right, #e9fff2, #e9fff2, #e9fff2);  /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(to right, #e9fff2, #e9fff2, #e9fff2); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   font-family:sans-serif;
+  overflow: hidden;
 }
 
 body, html, .App, #root, .outer {
@@ -70,6 +71,19 @@ body, html, .App, #root, .outer {
 
 }
 
+.menuButton{
+  display: block;
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 500;
+  width: 45px;
+  height: 45px;
+  padding: 5px;
+  background-color: #f0f0f0;
+  border: 0;
+}
+
 .wrapper{
   position: fixed;
   top : 0;
@@ -103,16 +117,15 @@ body, html, .App, #root, .outer {
 
 .menu .menuLink{
   text-decoration:none;                     
-  color: rgb(41, 37, 37);                             
+  color: rgb(36, 36, 36);                            
   display: block;                           
-  width: 900px;
-  height: 30px;                
+  width: 29vw;
+  height: 4vh;                
   font-size: 15px;                       
   font-weight: bold;     
   display: inline-block;
   text-align: center;
   margin-top: 10px;
-        
 }
 
 .menu .menuLink:hover{
@@ -120,11 +133,7 @@ body, html, .App, #root, .outer {
 }
 
 .LogOut{
-  background-color: #ffffff;
-  position: fixed;
-  top : 10px;
-  left : 1800px;
-  right : 100px;
+  background-color: #ffffff00;
   font-size: 15px;                       
   font-weight: bold;
   font-size: 14px;
@@ -136,37 +145,43 @@ body, html, .App, #root, .outer {
 
 .calendar{
   display: flex;
+  position : absolute;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
   font-weight: bold;
+  top: 50%;
+  left: 50%;
+  margin-left: -30vw;
+  margin-top: -50vh;
 }
 
 .textbox{
   position: absolute;
-  width: 800px;
-  height: 400px;
+  width: 46vw;
+  height: 45vh;
   top: 50%;
   left: 50%;
-  margin-left: -400px;
-  margin-top: -100px;
+  margin-left: -23vw;
+  margin-top: -15vh;
   border: none;
   outline: none;
-  font-size: 20px;
+  font-size: 1.2em;
   overflow: visible;
   resize: none;
   text-overflow: ellipsis;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .submit{
   position: absolute;
-  width: 800px;
-  height: 30px;
+  width: 46vw;
+  height: 4vh;
   top: 50%;
   left: 50%;
-  margin-left: -400px;
-  margin-top: 300px;
+  margin-left: -23vw;
+  margin-top: 37vh;
   border-color:rgb(156, 219, 197);
   border-style:dotted;
   background-color:#ffffff;
@@ -178,7 +193,7 @@ body, html, .App, #root, .outer {
 .question{
   display: block;
   font-size: 2em;
-  margin: 200px 0px 0px 0px;
+  margin: 20vh 0px 0px 0px;
   font-weight: bold;
   text-align: center;
   animation: fadein 3s;
