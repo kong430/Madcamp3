@@ -79,6 +79,7 @@ export default class Calendardraw extends React.Component{
         }
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
+        this.setDate()
     };
 
     prevpress(){
@@ -88,6 +89,7 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:11, year:this.state.year-1})
         }
+        this.setDate()
     }
 
     nextpress(){
@@ -97,6 +99,7 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:0, year:this.state.year+1})
         }
+        this.setDate()
     }
 
     setDate() {
@@ -149,7 +152,6 @@ export default class Calendardraw extends React.Component{
         )
     }
     render () {
-        this.setDate()
         return (
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
