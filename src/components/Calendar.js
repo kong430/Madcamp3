@@ -39,13 +39,14 @@ function Square(props) {
 }
   
 class Calendar extends React.Component {
+    
     renderSquare(i) {
         return (
             <Square value={this.props.datelist[i]} condition={this.props.conditionlist[i]} emodata={this.props.emodatalist[i]}/>      
         );
     }
 
-    render() {  
+    render() { 
         return (
             <div>
                 <div style={{marginTop:'20px'}}>
@@ -64,6 +65,8 @@ export default class Calendardraw extends React.Component{
     constructor(props) {
         super(props);
         console.log("CONSTRUCTOR!!!!!!!!!!!!!");
+        console.log("CCCCCCC", this.props.userData);
+
 
         const date = new Date();
         const viewYear = date.getFullYear();

@@ -15,6 +15,4 @@ const Home = ({ userObj }) => {
   )
 };
 
-console.log("Home!!!!!!!!!!!!!");
-
 export default Home;

@@ -4,7 +4,7 @@ import { authService } from "fbase";
 import { firebaseInstance } from "fbase";
 import { dbService } from "fbase";
 
-function App() {
+function App(props) {
   console.log("APP!!!");
   const [init, setInit] = useState(false);
   const [userObj, setUserObj] = useState(null);
@@ -24,7 +24,6 @@ function App() {
         setUserObj(null);
       }
       setInit(true);
-      bringData();
     });
   }, []);
 
@@ -38,31 +37,6 @@ function App() {
     console.log(authService.currentUser);
   };
 
- const bringData = async() => {
-    console.log("APP bringDATA!!!!!!!!!!!!");
-    if (firebaseInstance.auth().currentUser!= null){
-      console.log("APP user!!!!!!!!");
-      var uid = firebaseInstance.auth().currentUser.uid;
-
-      var docRef = dbService.collection("Users").doc(uid);
-
-      docRef.get().then((doc) => {
-          if (doc.exists) {
-            userData = doc.data();
-            console.log("APP userData", userData);
-            console.log("data:", doc.data());
-            console.log(doc.data());
-            console.log(doc.data().emodataList.findIndex
-            (i=>i.year === 2021 && i.month === 7 && i.day === 19));
-          } else {
-              console.log("No such document!");
-          }
-      }).catch((error) => {
-          console.log("Error getting document:", error);
-      });
-    }
-  };
-
   return (
     <>
       {init ? (
@@ -70,7 +44,7 @@ function App() {
           refreshUser={refreshUser}
           isLoggedIn={Boolean(userObj)}
           userObj={userObj}
-          userData = {userData}
+          userData = {props.userData}
         />
       ) : (
         "loading..."

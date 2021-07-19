@@ -11,7 +11,7 @@ import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 import Total from "routes/Total";
 
-const AppRouter = ({ refreshUser, userObj, userData }) => {
+const AppRouter = ({ refreshUser, userObj }) => {
   return (
     <Router>
       {userObj && <Navigation userObj={userObj} />}
@@ -19,13 +19,13 @@ const AppRouter = ({ refreshUser, userObj, userData }) => {
         {userObj ? (
           <>
             <Route exact path="/">
-              <Home userObj={userObj} userData = {userData} />
+              <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
-              <Profile userObj={userObj} refreshUser={refreshUser} userData = {userData}/>
+              <Profile userObj={userObj} refreshUser={refreshUser} />
             </Route>
             <Route exact path="/total">
-              <Total userObj={userObj} userData = {userData}/>
+              <Total userObj={userObj}/>
             </Route>
             <Redirect from="*" to="/" />
           </>
