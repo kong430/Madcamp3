@@ -210,7 +210,7 @@ body, html, .App, #root, .outer {
 canvas {
   position : absolute;
   width: 100%;
-  height: 100%;
-  margin: 41px -8px;
+  height: 100vh;
+  margin: 5vh -8px;
   padding: 0;
 }

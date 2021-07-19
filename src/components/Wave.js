@@ -1,13 +1,18 @@
 import React, { createRef } from "react";
 import '../index.css';
+import Calendardraw from "./Calendar";
 
 export default class Wavemaker extends React.Component{
     constructor(props){
         super(props)
-        this.canvasRef = createRef();
+        this.canvasRef = props.canvasref;
         this.canvas = null;
         this.ctx = null;
         this.wavegroup = new Wavegroup();
+        this.state = {
+            anime : false
+        };
+        this.stopanime=this.stopanime.bind(this)
     }
 
     componentDidMount() {
@@ -18,9 +23,18 @@ export default class Wavemaker extends React.Component{
         requestAnimationFrame(this.animate.bind(this));
     }
 
+    stopanime(){
+        if(this.state.anime==true){
+            this.state.anime=false
+        }
+        else{
+            this.state.anime=true
+        }
+    }
+
     resize(){
-        this.stageWidth = 1000;
-        this.stageHeight = 600;
+        this.stageWidth = window.innerWidth;
+        this.stageHeight = window.innerHeight;
 
         this.canvas.width = this.stageWidth*2;
         this.canvas.height = this.stageHeight*2;
@@ -30,13 +44,15 @@ export default class Wavemaker extends React.Component{
 
     animate(t){
         this.ctx.clearRect(0,0, this.stageWidth, this.stageHeight);
-        this.wavegroup.draw(this.ctx);
+        this.wavegroup.draw(this.ctx, this.state.anime);
         requestAnimationFrame(this.animate.bind(this));
     }
 
     render () {
         return (
-            <canvas ref={this.canvasRef} />
+            <div>
+                <canvas ref={this.canvasRef}/>                
+            </div>            
         )
     }
 }
@@ -52,9 +68,6 @@ class Point{
     }
 
     update(){
-        if(this.fixedY>-50){
-            this.fixedY-=3;
-        }
         this.cur += this.speed;
         this.y = this.fixedY+(Math.sin(this.cur)*this.max);
     }
@@ -76,8 +89,6 @@ class Wave{
 
         this.pointGap = this.stageWidth/(this.totalPoints-1);
 
-        console.log(this.centerX);
-
         this.init();
     }
 
@@ -95,7 +106,7 @@ class Wave{
 
     }
 
-    draw(ctx){
+    draw(ctx, isdraw){
         ctx.beginPath();
         ctx.fillStyle = this.color;
         
@@ -106,8 +117,17 @@ class Wave{
         for(let i=1;i<this.totalPoints;i++){
             if(i<this.totalPoints-1){
                 this.points[i].update();
-                this.points[0].y-=0.15;
-                this.points[this.totalPoints-1].y-=0.15;
+                if(isdraw){
+                    this.points[0].y-= this.points[0].y<-66 ?  0 : 0.15;
+                    this.points[this.totalPoints-1].y-= this.points[this.totalPoints-1].y<-66 ?  0 : 0.15;
+                    this.points[i].fixedY-= this.points[i].fixedY<-66 ? 0 : 3;
+                }
+                else{
+                    this.points[0].y+= this.points[0].y>this.stageHeight ?  0 : 0.15;
+                    this.points[this.totalPoints-1].y+= this.points[this.totalPoints-1].y > this.stageHeight ?  0 : 0.15;
+                    this.points[i].fixedY+= this.points[i].fixedY > this.stageHeight ? 0 : 3;
+                }
+                
             }
 
             const cx = (prevX+this.points[i].x)/2;
@@ -130,7 +150,6 @@ class Wavegroup{
     constructor(){
         this.totalWaves = 4;
         this.totalPoints = 20;
-
         this.color = ['rgba(15,100,166,0.1)', 'rgba(0,202,209,0.1)','rgba(16,16,112,0.1)','rgba(22,22,240,0.1',]
 
         this.waves = [];
@@ -152,10 +171,10 @@ class Wavegroup{
         }
     }
 
-    draw(ctx){
+    draw(ctx, isdraw){
         for(let i= 0 ; i<this.totalWaves ; i++){
             const wave = this.waves[i];
-            wave.draw(ctx);
-        }
+            wave.draw(ctx, isdraw);
+        }        
     }
 }
