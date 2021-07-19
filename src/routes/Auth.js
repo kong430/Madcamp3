@@ -1,5 +1,5 @@
 import React from "react";
-import { authService, firebaseInstance } from "fbase";
+import { authService, firebaseInstance, firebaseUser } from "fbase";
 import '../index';
 
 const Auth = () => {
@@ -12,6 +12,7 @@ const Auth = () => {
       provider = new firebaseInstance.auth.GoogleAuthProvider();
     }
     await authService.signInWithPopup(provider);
+    console.log("user " + firebaseInstance.auth().currentUser.uid);
   };
 
   return (
@@ -29,4 +30,10 @@ const Auth = () => {
   );
 };
 
+console.log("Auth!!!!!!!!!!!!!!!!");
+
 export default Auth;
+
+//jBazOsXyA7QZ3GDYaB0zPWzPBOz2
+
+//1rVM1CwB3Jgs5MfED1K0pObT9cl2

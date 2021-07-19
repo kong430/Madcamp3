@@ -3,35 +3,46 @@ import '../App.css';
 import '../index.css';
 import Wavemaker from "./Wave";
 
+import { storageService } from "fbase";
+import { firebaseInstance } from "fbase";
+import firebase, { auth, firestore } from "firebase";
+import App from "./App";
+import { authService, dbService } from "fbase";
+
+var tmp_props;
+
 function Square(props) {
+    if (props.animecontrol!= null) tmp_props = props;
+    console.log("PROPS", tmp_props);
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
+    //console.log("PROPS EMOSCORE", emoscore);
     let color=""
     let anime
     if(emoscore<-1){
         color = colorlist[6];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.7){
         color = colorlist[5];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.4){
         color = colorlist[4];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.0){
         color = colorlist[3];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.3){
         color = colorlist[2];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.7){
         color = colorlist[1];
-        anime = props.animecontrol[2];
+        anime = tmp_props.animecontrol[2];
     } else {
         color = colorlist[0];
-        anime = props.animecontrol[2];
+        anime = tmp_props.animecontrol[2];
     }
-    const opacity = props.condition=='this'?1:0.2;
+    const opacity = tmp_props.condition=='this'?1:0.2;
 
     return (
       <button onClick = {anime} className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
@@ -43,13 +54,13 @@ function Square(props) {
 }
   
 class Calendar extends React.Component{
-    renderSquare(i) {
+        renderSquare(i) {
         return (
             <Square value={this.props.datelist[i]} condition={this.props.conditionlist[i]} emodata={this.props.emodatalist[i]} animecontrol={this.props.animecontrol}/>      
         );
     }
 
-    render() {  
+    render() { 
         return (
             <div>
                 <div style={{marginTop:'20px'}}>
@@ -67,6 +78,10 @@ class Calendar extends React.Component{
 export default class Calendardraw extends React.Component{
     constructor(props) {
         super(props);
+        console.log("CONSTRUCTOR!!!!!!!!!!!!!");
+        console.log("CCCCCCC", this.props.userData);
+
+
         const date = new Date();
         const viewYear = date.getFullYear();
         const viewMonth = date.getMonth();
@@ -77,6 +92,7 @@ export default class Calendardraw extends React.Component{
           month : viewMonth,
           year : viewYear,
         }
+        //console.log(typeof(this.state));
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
         this.setDate()
@@ -103,6 +119,8 @@ export default class Calendardraw extends React.Component{
     }
 
     setDate() {
+        console.log("SETDATE!!!!!!!!!!!!!");
+        console.log(this.props);
         const viewYear = this.state.year
         const viewMonth = this.state.month
     
@@ -140,14 +158,32 @@ export default class Calendardraw extends React.Component{
         const firstDateIndex = dates.indexOf(1);
         const lastDateIndex = dates.lastIndexOf(TLDate);
         dates.forEach((date, i) => {
+            //console.log("DATEEEEEEEEEEEEEEE", date);
             const condition = i >= firstDateIndex && i < lastDateIndex + 1
                             ? 'this'
                             : 'other';
             this.state.datelist[i]=date
+            //console.log("datatlist" + typeof(date));
             this.state.conditionlist[i]=condition
+            
             //임의로 값 넣는부분
             const score = 1-Math.random()*2
-            this.state.emodatalist[i]={text:'hello',score:score, magnitude:1}
+            this.state.emodatalist[i]={text:null,score:null, magnitude:null}
+
+            if (this.props.userData != null){
+                var data = this.props.userData;                
+                var idx = data.emodataList.findIndex
+                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.day === date)
+
+                if (idx != -1) {
+                    this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
+                    this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
+                    console.log("SCORE", this.state.emodatalist[i].score);
+                }
+                /**firebase.database().ref(authService.currentUser.uid).set({
+                    score: 0.5
+                })*/
+            }
             }
         )
     }
@@ -156,12 +192,12 @@ export default class Calendardraw extends React.Component{
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
                     <button onClick={this.prevpress} style={{width:'60px', height:'30px', marginRight:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px'}}>
+                border:'0px', cursor: "pointer"}}>
                         Prev
                     </button>
                     {this.state.year}년 {this.state.month+1}월
                     <button onClick={this.nextpress} style={{width:'60px', height:'30px', marginLeft:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px'}}>
+                border:'0px', cursor: "pointer"}}>
                         Next
                     </button>
                 </div>
