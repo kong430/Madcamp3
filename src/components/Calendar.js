@@ -13,19 +13,17 @@ var tmp_props;
 
 function Square(props) {
     if (props.animecontrol!= null) tmp_props = props;
-    console.log("PROPS", tmp_props);
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
-    //console.log("PROPS EMOSCORE", emoscore);
     let color=""
     let anime
     if(emoscore<-1){
         color = colorlist[6];
-        anime = tmp_props.animecontrol[1];
+        anime = tmp_props.animecontrol[0];
     } else if(emoscore<-0.7){
         color = colorlist[5];
-        anime = tmp_props.animecontrol[1];
+        anime = tmp_props.animecontrol[0];
     } else if(emoscore<-0.4){
         color = colorlist[4];
         anime = tmp_props.animecontrol[1];
@@ -167,20 +165,17 @@ export default class Calendardraw extends React.Component{
             const score = 1-Math.random()*2
             this.state.emodatalist[i]={text:null,score:null, magnitude:null}
 
-            if (this.props.userData != null){
-                var data = this.props.userData;                
+            if (this.props.userData != null && this.props.userData){
+                var data = this.props.userData;        
                 var idx = data.emodataList.findIndex
-                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.day === date)
-
+                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.date === date)
+                console.log(idx);
                 if (idx != -1) {
                     this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
                     this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
                     console.log("SCORE", this.state.emodatalist[i].score);
                 }
-                /**firebase.database().ref(authService.currentUser.uid).set({
-                    score: 0.5
-                })*/
-            }
+              }
             }
         )
     }

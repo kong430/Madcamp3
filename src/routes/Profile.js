@@ -26,8 +26,7 @@ const profile = ({ userObj, refreshUser}) => {
 
   return (
     <>
-      <Canvasdrawer/>
-      <Calendardraw userData = {userData}> </Calendardraw>            
+      <Canvasdrawer userData = {userData}/>
     </>
   );
 };

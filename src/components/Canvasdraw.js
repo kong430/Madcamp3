@@ -54,7 +54,7 @@ export default class Canvasdrawer extends Component{
         if(this.state.whatanime == null){
             return(
                 <div>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>
                 </div> 
             )            
         }
@@ -62,7 +62,7 @@ export default class Canvasdrawer extends Component{
             return(
                 <div>
                     <Wavemaker ref = {this.Wave} canvasref = {this.Wavecanvas}/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>
                 </div>
             )            
         }
@@ -70,7 +70,7 @@ export default class Canvasdrawer extends Component{
             return (
                 <div>
                     <Happyanime canvasref = {this.Happycanvas}/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>
                 </div> 
             )                       
         }
