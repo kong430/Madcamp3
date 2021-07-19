@@ -125,17 +125,13 @@ body, html, .App, #root, .outer {
   display: inline-block;
   text-align: center;
   margin-top: 10px;
+  text-transform: uppercase;
+
 }
 
 .LogOut{
   background-color: #ffffff;
-  position: fixed;
-  top : 10px;
-  left : 80vw;
-  right : 100px;
-  font-size: 15px;                       
   font-weight: bold;
-  font-size: 14px;
   text-transform: uppercase;
   border: none;
   outline: none;

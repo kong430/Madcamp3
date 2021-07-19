@@ -9,35 +9,40 @@ import firebase, { auth, firestore } from "firebase";
 import App from "./App";
 import { authService, dbService } from "fbase";
 
+var tmp_props;
+
 function Square(props) {
+    if (props.animecontrol!= null) tmp_props = props;
+    console.log("PROPS", tmp_props);
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
+    //console.log("PROPS EMOSCORE", emoscore);
     let color=""
     let anime
     if(emoscore<-1){
         color = colorlist[6];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.7){
         color = colorlist[5];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.4){
         color = colorlist[4];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.0){
         color = colorlist[3];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.3){
         color = colorlist[2];
-        anime = props.animecontrol[1];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.7){
         color = colorlist[1];
-        anime = props.animecontrol[2];
+        anime = tmp_props.animecontrol[2];
     } else {
         color = colorlist[0];
-        anime = props.animecontrol[2];
+        anime = tmp_props.animecontrol[2];
     }
-    const opacity = props.condition=='this'?1:0.2;
+    const opacity = tmp_props.condition=='this'?1:0.2;
 
     return (
       <button onClick = {anime} className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
@@ -112,6 +117,7 @@ export default class Calendardraw extends React.Component{
 
     setDate() {
         console.log("SETDATE!!!!!!!!!!!!!");
+        console.log(this.props);
         const viewYear = this.state.year
         const viewMonth = this.state.month
     
