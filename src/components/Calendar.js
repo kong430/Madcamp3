@@ -3,9 +3,9 @@ import '../App.css';
 import '../index.css';
 import { storageService } from "fbase";
 import { firebaseInstance } from "fbase";
-import firebase, { firestore } from "firebase";
+import firebase, { auth, firestore } from "firebase";
 import App from "./App";
-import { dbService } from "fbase";
+import { authService, dbService } from "fbase";
 
 function Square(props) {
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
@@ -78,7 +78,7 @@ export default class Calendardraw extends React.Component{
           month : viewMonth,
           year : viewYear,
         }
-        console.log(typeof(this.state));
+        //console.log(typeof(this.state));
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
     };
@@ -140,20 +140,32 @@ export default class Calendardraw extends React.Component{
         const firstDateIndex = dates.indexOf(1);
         const lastDateIndex = dates.lastIndexOf(TLDate);
         dates.forEach((date, i) => {
+            //console.log("DATEEEEEEEEEEEEEEE", date);
             const condition = i >= firstDateIndex && i < lastDateIndex + 1
                             ? 'this'
                             : 'other';
             this.state.datelist[i]=date
-            console.log("datatlist" + typeof(date));
+            //console.log("datatlist" + typeof(date));
             this.state.conditionlist[i]=condition
             
             //임의로 값 넣는부분
             const score = 1-Math.random()*2
-            this.state.emodatalist[i]={text:'hello',score:score, magnitude:1}
-            
-            /**console.log(userData.emodataList.findIndex
-            (d=>d.year === this.state.year && d.month === this.state.month && d.day === i));
-            */
+            this.state.emodatalist[i]={text:null,score:null, magnitude:null}
+
+            if (this.props.userData != null){
+                var data = this.props.userData;                
+                var idx = data.emodataList.findIndex
+                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.day === date)
+
+                if (idx != -1) {
+                    this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
+                    this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
+                    console.log("SCORE", this.state.emodatalist[i].score);
+                }
+                /**firebase.database().ref(authService.currentUser.uid).set({
+                    score: 0.5
+                })*/
+            }
             }
         )
     }
