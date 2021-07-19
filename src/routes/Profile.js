@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { authService, dbService } from "fbase";
 import { useHistory } from "react-router-dom";
 import Calendardraw from "components/Calendar";
+import Wavemaker from "components/Wave"
+import Canvasdrawer from "components/Canvasdraw";
 import App from "components/App";
 
 var userData = null;
@@ -24,7 +26,8 @@ const profile = ({ userObj, refreshUser}) => {
 
   return (
     <>
-      <Calendardraw userData = {userData}> </Calendardraw>
+      <Canvasdrawer/>
+      <Calendardraw userData = {userData}> </Calendardraw>            
     </>
   );
 };

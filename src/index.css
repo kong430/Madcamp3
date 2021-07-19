@@ -3,7 +3,6 @@
 }
 
 body {
-  min-height: 100vh;
   display: flex;
   font-weight: 400;
   font-family: sans-serif;
@@ -126,29 +125,29 @@ body, html, .App, #root, .outer {
   display: inline-block;
   text-align: center;
   margin-top: 10px;
-}
+  text-transform: uppercase;
 
-.menu .menuLink:hover{
-  color: green;
 }
 
 .LogOut{
-  background-color: #ffffff00;
-  font-size: 15px;                       
+  background-color: #ffffff;
   font-weight: bold;
-  font-size: 14px;
   text-transform: uppercase;
   border: none;
   outline: none;
   cursor: pointer;
 } 
 
+.menu .menuLink .LogOut:hover{
+  color: green;
+}
+
 .calendar{
   display: flex;
   position : absolute;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
+  min-height: 100%;
   flex-direction: column;
   font-weight: bold;
   top: 50%;
@@ -215,4 +214,12 @@ body, html, .App, #root, .outer {
   to {
       opacity: 1;
   }
+}
+
+canvas {
+  position : absolute;
+  width: 100%;
+  height: 100vh;
+  margin: 5vh -8px;
+  padding: 0;
 }

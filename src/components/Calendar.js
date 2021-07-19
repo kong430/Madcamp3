@@ -1,36 +1,51 @@
 import React from "react";
 import '../App.css';
 import '../index.css';
+import Wavemaker from "./Wave";
+
 import { storageService } from "fbase";
 import { firebaseInstance } from "fbase";
 import firebase, { auth, firestore } from "firebase";
 import App from "./App";
 import { authService, dbService } from "fbase";
 
+var tmp_props;
+
 function Square(props) {
+    if (props.animecontrol!= null) tmp_props = props;
+    console.log("PROPS", tmp_props);
     let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
+    //console.log("PROPS EMOSCORE", emoscore);
     let color=""
+    let anime
     if(emoscore<-1){
         color = colorlist[6];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.7){
         color = colorlist[5];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.4){
         color = colorlist[4];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.0){
         color = colorlist[3];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.3){
         color = colorlist[2];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.7){
         color = colorlist[1];
+        anime = tmp_props.animecontrol[2];
     } else {
         color = colorlist[0];
+        anime = tmp_props.animecontrol[2];
     }
-    const opacity = props.condition=='this'?1:0.2;
+    const opacity = tmp_props.condition=='this'?1:0.2;
 
     return (
-      <button className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
+      <button onClick = {anime} className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
           <div style={{width:'6.5vw',height:'8vh', textAlign:'right'}}>
             {props.value}
           </div>
@@ -38,11 +53,10 @@ function Square(props) {
     );
 }
   
-class Calendar extends React.Component {
-    
-    renderSquare(i) {
+class Calendar extends React.Component{
+        renderSquare(i) {
         return (
-            <Square value={this.props.datelist[i]} condition={this.props.conditionlist[i]} emodata={this.props.emodatalist[i]}/>      
+            <Square value={this.props.datelist[i]} condition={this.props.conditionlist[i]} emodata={this.props.emodatalist[i]} animecontrol={this.props.animecontrol}/>      
         );
     }
 
@@ -103,6 +117,7 @@ export default class Calendardraw extends React.Component{
 
     setDate() {
         console.log("SETDATE!!!!!!!!!!!!!");
+        console.log(this.props);
         const viewYear = this.state.year
         const viewMonth = this.state.month
     
@@ -184,7 +199,7 @@ export default class Calendardraw extends React.Component{
                         Next
                     </button>
                 </div>
-                <Calendar datelist={this.state.datelist} conditionlist={this.state.conditionlist} emodatalist={this.state.emodatalist}/>
+                <Calendar datelist={this.state.datelist} conditionlist={this.state.conditionlist} emodatalist={this.state.emodatalist} animecontrol={this.props.animecontrol}/>
             </div>
         )
     }
