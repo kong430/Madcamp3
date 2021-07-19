@@ -11,21 +11,25 @@ function Square(props) {
     let anime
     if(emoscore<-1){
         color = colorlist[6];
-        anime = props.wavecontrol
+        anime = props.animecontrol[1];
     } else if(emoscore<-0.7){
         color = colorlist[5];
-        anime = props.wavecontrol
+        anime = props.animecontrol[1];
     } else if(emoscore<-0.4){
         color = colorlist[4];
-        anime = props.wavecontrol
+        anime = props.animecontrol[1];
     } else if(emoscore<-0.0){
         color = colorlist[3];
+        anime = props.animecontrol[1];
     } else if(emoscore<0.3){
         color = colorlist[2];
+        anime = props.animecontrol[1];
     } else if(emoscore<0.7){
         color = colorlist[1];
+        anime = props.animecontrol[2];
     } else {
         color = colorlist[0];
+        anime = props.animecontrol[2];
     }
     const opacity = props.condition=='this'?1:0.2;
 

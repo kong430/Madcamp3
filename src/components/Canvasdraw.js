@@ -11,45 +11,66 @@ export default class Canvasdrawer extends Component{
         this.Wave = createRef();
         this.Happycanvas = createRef();
         this.Happy = createRef();
-        this.Canvasinform = createRef();
+        this.Calendarinform = createRef();
         this.state = {
             whatanime : null
         }
         this.Wavecanvasonclick = this.Wavecanvasonclick.bind(this);
         this.Initcanvasonclick = this.Initcanvasonclick.bind(this);
         this.Happyanimeonclick = this.Happyanimeonclick.bind(this);
+        this.firstchange = true;
     }
 
-    Initcanvasonclick(){
-
-    }
-
-    Wavecanvasonclick(){
-        this.Wave.current.stopanime();
-        this.setState({whatanime:'wave'});
-    }
-
-    Happyanimeonclick(){
-
-    }
-    render(){
-        console.log(this.state);
-        if(this.whatanime == null){
-            return <Calendardraw animecontrol={this.Initcanvasonclick} ref = {this.Canvasinform}/>
+    Initcanvasonclick = () => {
+        if(this.state.whatanime!=null){
+            this.setState({whatanime:null})
         }
-        else if(this.whatanime == 'wave'){
+        else{
+
+        }
+    }
+
+    Wavecanvasonclick = () => {
+        if(this.state.whatanime!='wave'){
+            this.setState({whatanime:'wave'})
+        }
+        else{
+            this.Wave.current.stopanime();
+        }
+    }
+
+    Happyanimeonclick = () => {
+        if(this.state.whatanime!='happy'){
+            this.setState({whatanime:'happy'})
+        }
+        else{
+            
+        }
+    }
+
+    onclicklist = [this.Initcanvasonclick, this.Wavecanvasonclick, this.Happyanimeonclick]
+
+    render(){
+        if(this.state.whatanime == null){
+            return(
+                <div>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
+                </div> 
+            )            
+        }
+        else if(this.state.whatanime == 'wave'){
             return(
                 <div>
                     <Wavemaker ref = {this.Wave} canvasref = {this.Wavecanvas}/>
-                    <Calendardraw animecontrol={this.Wavecanvasonclick} ref = {this.Canvasinform}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
                 </div>
             )            
         }
-        else if(this.whatanime == 'happy'){
+        else if(this.state.whatanime == 'happy'){
             return (
                 <div>
                     <Happyanime canvasref = {this.Happycanvas}/>
-                    <Calendardraw animecontrol={this.Happyanimeonclick} ref = {this.Canvasinform}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>
                 </div> 
             )                       
         }

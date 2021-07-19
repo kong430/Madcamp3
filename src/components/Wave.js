@@ -10,7 +10,7 @@ export default class Wavemaker extends React.Component{
         this.ctx = null;
         this.wavegroup = new Wavegroup();
         this.state = {
-            anime : false
+            anime : true
         };
         this.stopanime=this.stopanime.bind(this)
     }
