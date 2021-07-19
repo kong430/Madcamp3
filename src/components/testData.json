@@ -1,0 +1,32 @@
+[
+    {
+      "id": "make",
+      "label": "make",
+      "value": 562,
+      "color": "hsl(152, 70%, 50%)"
+    },
+    {
+      "id": "java",
+      "label": "java",
+      "value": 51,
+      "color": "hsl(121, 70%, 50%)"
+    },
+    {
+      "id": "sass",
+      "label": "sass",
+      "value": 165,
+      "color": "hsl(8, 70%, 50%)"
+    },
+    {
+      "id": "css",
+      "label": "css",
+      "value": 218,
+      "color": "hsl(287, 70%, 50%)"
+    },
+    {
+      "id": "c",
+      "label": "c",
+      "value": 506,
+      "color": "hsl(276, 70%, 50%)"
+    }
+  ]
