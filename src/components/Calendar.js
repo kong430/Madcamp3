@@ -20,10 +20,10 @@ function Square(props) {
     let anime
     if(emoscore<-1){
         color = colorlist[6];
-        anime = tmp_props.animecontrol[0];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.7){
         color = colorlist[5];
-        anime = tmp_props.animecontrol[0];
+        anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.4){
         color = colorlist[4];
         anime = tmp_props.animecontrol[1];
