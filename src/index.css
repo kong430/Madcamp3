@@ -20,6 +20,7 @@ body, html, .App, #root, .outer {
 textarea {
   font-family: inherit;
   font-size: inherit;
+  background-image: url('./background/background_paper.jpg')
 }
 .outer {
   display: flex;
