@@ -1,15 +1,15 @@
 import React, { createRef} from "react";
 import { Component } from "react";
 import Happyanime from "./Happyanime";
-import Wavemaker from "./Wave";
 import Calendardraw from "./Calendar";
+import Nightanime from "./Nightanime";
+import Wavemaker from "./Wave";
 
 export default class Canvasdrawer extends Component{
     constructor(){
         super();
-        this.Wavecanvas = createRef();
+        this.canvas = createRef();
         this.Wave = createRef();
-        this.Happycanvas = createRef();
         this.Happy = createRef();
         this.Calendarinform = createRef();
         this.Wavecanvasonclick = this.Wavecanvasonclick.bind(this);
@@ -40,8 +40,8 @@ export default class Canvasdrawer extends Component{
         if(this.state.whatanime!='happy'){
             this.setState({whatanime:'happy'})
         }
-        else{
-            
+        else if(this.state.whatanime=='happy'){
+            this.setState({whatanime:'nighthappy'})
         }
     }
 
@@ -59,7 +59,7 @@ export default class Canvasdrawer extends Component{
         else if(this.state.whatanime == 'wave'){
             return(
                 <div>
-                    <Wavemaker ref = {this.Wave} canvasref = {this.Wavecanvas}/>
+                    <Wavemaker ref = {this.Wave} canvasref = {this.canvas}/>
                     <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )
@@ -67,7 +67,15 @@ export default class Canvasdrawer extends Component{
         else if(this.state.whatanime == 'happy'){
             return(
                 <div>
-                    <Happyanime canvasref = {this.Happycanvas}/>
+                    <Happyanime canvasref = {this.canvas}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
+                </div>            
+            )            
+        }
+        else if(this.state.whatanime == 'nighthappy'){
+            return(
+                <div>
+                    <Nightanime canvasref = {this.canvas}/>
                     <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )            

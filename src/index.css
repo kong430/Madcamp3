@@ -221,3 +221,43 @@ canvas {
   margin: 5vh -8px;
   padding: 0;
 }
+
+.slider {
+  position: absolute;
+  left: 10%;
+  top: 30%;
+  width: 80%;
+  height: 60vh;
+  overflow: hidden;
+  align-items: center;
+}
+.slider-inner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 90%;
+  width: 3000px;
+  display: grid;
+  grid-template-columns: repeat(31, 50px);
+  gap: 1.5rem;
+  pointer-events: none;
+  transition: 0s ease-in;
+}
+.slide {
+  height: 100%;
+  margin-top: 0;
+  background-color: blue;
+  transition: .5s;
+  opacity: 1;
+}
+
+.clickpage {
+  position: absolute;
+  width: 200px;
+  height: 60vh;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: 100vh;
+  background-color: chartreuse;
+  transition: .5s;
+}
