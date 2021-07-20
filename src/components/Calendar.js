@@ -44,7 +44,7 @@ function Square(props) {
 
     return (
       <button onClick = {anime} className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
-          <div style={{width:'6.5vw',height:'8vh', textAlign:'right'}}>
+          <div style={{width:'6.5vw',height:'8vh', textAlign:'right', fontFamily:"titlehandwrites"}}>
             {props.value}
           </div>
       </button>
@@ -88,9 +88,25 @@ export default class Calendardraw extends React.Component{
         }
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
-        this.setDate()
         this.textcolor = '#000000'
+        this.docRef = dbService.collection("Users").doc(props.userObj.uid);
+        this.setDate()
+        
     };
+    componentDidMount(){
+        this.docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.userData = (doc.data());
+                this.setDate()
+                this.setState({month:this.state.month})
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });        
+    }
 
     settextcolor(color){
         this.textcolor = color
@@ -103,7 +119,6 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:11, year:this.state.year-1})
         }
-        this.setDate()
     }
 
     nextpress(){
@@ -113,14 +128,11 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:0, year:this.state.year+1})
         }
-        this.setDate()
     }
 
     setDate() {
-        console.log(this.props);
         const viewYear = this.state.year
         const viewMonth = this.state.month
-    
         // 지난 달 마지막 Date, 이번 달 마지막 Date
         const prevLast = new Date(viewYear, viewMonth, 0);
         const thisLast = new Date(viewYear, viewMonth + 1, 0);
@@ -167,20 +179,20 @@ export default class Calendardraw extends React.Component{
             const score = 1-Math.random()*2
             this.state.emodatalist[i]={text:null,score:null, magnitude:null}
 
-            if (this.props.userData != null && this.props.userData){
-                var data = this.props.userData;        
+            if (this.userData != null && this.userData){
+                var data = this.userData;        
                 var idx = data.emodataList.findIndex
-                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.date === date)
-                console.log(idx);
+                (d=>d.year === this.state.year && d.month === (this.state.month+1) && d.date === date)
                 if (idx != -1) {
-                    this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
-                    this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
+                    this.state.emodatalist[i].score = this.userData.emodataList[idx].score;
+                    this.state.emodatalist[i].text = this.userData.emodataList[idx].text;
                 }
               }
             }
         )
     }
     render () {
+        this.setDate();
         return (
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
@@ -188,7 +200,7 @@ export default class Calendardraw extends React.Component{
                 border:'0px', cursor: "pointer"}}>
                         Prev
                     </button>
-                    <span style = {{color:`${this.textcolor}`}}>
+                    <span style = {{color:`${this.textcolor}`, fontFamily:"titlehandwrites"}}>
                         {this.state.year}년 {this.state.month+1}월
                     </span>                
                     <button onClick={this.nextpress} style={{width:'60px', height:'30px', marginLeft:'30px', background:'#FFD36E', borderRadius:'10px',

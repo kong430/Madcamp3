@@ -4,10 +4,15 @@ import Happyanime from "./Happyanime";
 import Calendardraw from "./Calendar";
 import Nightanime from "./Nightanime";
 import Wavemaker from "./Wave";
+import { storageService } from "fbase";
+import { firebaseInstance } from "fbase";
+import firebase, { auth, firestore } from "firebase";
+import App from "./App";
+import { authService, dbService } from "fbase";
 
 export default class Canvasdrawer extends Component{
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.canvas = createRef();
         this.Wave = createRef();
         this.Happy = createRef();
@@ -17,6 +22,7 @@ export default class Canvasdrawer extends Component{
         this.Happyanimeonclick = this.Happyanimeonclick.bind(this);
         this.firstchange = true;
         this.state = {whatanime:null}
+        this.userObj = props.userObj
     }
     Initcanvasonclick = () => {
         if(this.state.whatanime!=null){
@@ -55,7 +61,7 @@ export default class Canvasdrawer extends Component{
             return(
                 <div>
                     <Blankcanvas/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>   
+                    <Calendardraw userObj = {this.userObj} animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )     
         }
@@ -63,7 +69,7 @@ export default class Canvasdrawer extends Component{
             return(
                 <div>
                     <Wavemaker ref = {this.Wave} canvasref = {this.canvas}/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>   
+                    <Calendardraw userObj = {this.userObj} animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )
         }
@@ -71,7 +77,7 @@ export default class Canvasdrawer extends Component{
             return(
                 <div>
                     <Happyanime canvasref = {this.canvas}/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
+                    <Calendardraw userObj = {this.userObj} animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )            
         }
@@ -79,7 +85,7 @@ export default class Canvasdrawer extends Component{
             return(
                 <div>
                     <Nightanime canvasref = {this.canvas}/>
-                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>   
+                    <Calendardraw userObj = {this.userObj} animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
                 </div>            
             )            
         }
