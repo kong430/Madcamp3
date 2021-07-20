@@ -17,7 +17,6 @@ function Square(props) {
     let colorlist = ["#e8e874", "#83e874", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
-    //console.log("PROPS EMOSCORE", emoscore);
     let color=""
     let anime
     if(emoscore<-1){
@@ -167,21 +166,18 @@ export default class Calendardraw extends React.Component{
             
             //임의로 값 넣는부분
             const score = 1-Math.random()*2
-            this.state.emodatalist[i]={text:"Hi",score:score, magnitude:1}
-            /*
-            if (this.props.userData != null){
-                var data = this.props.userData;                
-                var idx = data.emodataList.findIndex
-                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.day === date)
+            this.state.emodatalist[i]={text:null,score:null, magnitude:null}
 
+            if (this.props.userData != null && this.props.userData){
+                var data = this.props.userData;        
+                var idx = data.emodataList.findIndex
+                (d=>d.year === this.state.year && d.month === (this.state.month + 1) && d.date === date)
+                console.log(idx);
                 if (idx != -1) {
                     this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
                     this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
                 }
-                /**firebase.database().ref(authService.currentUser.uid).set({
-                    score: 0.5
-                })
-            }*/
+              }
             }
         )
     }

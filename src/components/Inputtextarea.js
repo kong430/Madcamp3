@@ -1,4 +1,6 @@
 import React from 'react';
+import { dbService, authService, firebaseInstance } from 'fbase';
+import { auth } from 'firebase';
 class Inputtextfield extends React.Component{
     constructor(props){
         super(props);
@@ -8,13 +10,14 @@ class Inputtextfield extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
     
-    handleSubmit(e){
+    
+    async handleSubmit(e){
         console.log('value - ' + this.state.value);
         e.preventDefault();
         let text;
         let score;
         let magnitude;
-        fetch('http://172.10.18.54:80/api',{
+        await fetch('http://172.10.18.54:80/api',{
             method: "POST",
             headers: {
             'Content-type': 'application/json'
@@ -24,11 +27,39 @@ class Inputtextfield extends React.Component{
             })
           }).then(res=>res.json()).then(res=>{
               text = res.text;
-              score = res.score;
-              magnitude = res.magnitude;
+              score = parseFloat(res.score);
+              magnitude = parseFloat(res.magnitude);
               console.log(text,score,magnitude);
           });
-        
+
+        var docRef = dbService.collection("Users").doc(authService.currentUser.uid);
+        var userData = null;
+
+        await docRef.get().then((doc) => {
+            if (doc.exists) {
+                console.log("Document data:", doc.data().emodataList);
+                userData = doc.data().emodataList;
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });
+
+        let today = new Date();
+        let year = today.getFullYear();
+        let month = today.getMonth() + 1;
+        let date = today.getDate();
+        console.log(year, month + 1, date);
+ 
+        userData.push({year: year, month: month, date: date, score:score, manitude:magnitude, text:text});
+        console.log(userData);
+        dbService.collection("Users").doc(authService.currentUser.uid).set({
+            emodataList: userData
+        }).then(() => {
+            console.log("success");
+        })
     }
  
     handleChange(e){
