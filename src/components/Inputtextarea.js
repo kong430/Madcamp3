@@ -76,9 +76,7 @@ class Inputtextfield extends React.Component{
             <form onSubmit={this.handleSubmit}>
                 <textarea value={this.state.value} onChange={this.handleChange} ref = "textarea" className="textbox" style={{fontFamily: "handwrites", fontSize:"25pt"}}/>
                 <div className = "submitDiv">
-                    <Link to="/profile" className = "menuLink">
                 <button className = "submit" onClick= {this.hasSubmitted} style={{fontFamily: "titlehandwrites", fontSize:"15pt", textAlign:"center"}}>완      료</button>
-                </Link>
                 </div>
             </form>
         );
