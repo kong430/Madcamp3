@@ -9,7 +9,6 @@ export default class Slider extends Component{
         this.innerSliderRef = createRef();
         this.clickedpageRef = createRef();
         this.slideritemRefArray = [];
-        this.numofitem = 30;
         for(let i=0;i<30;i++){
             const val = createRef();
             this.slideritemRefArray.push(val)
@@ -18,41 +17,23 @@ export default class Slider extends Component{
         this.startX=0;
         this.x=0;
         this.isdrag=false;
-        this.state={clickedindex : 0}
+        this.state={clickedindex : 0, numofitem : 0}
         this.docRef = dbService.collection("Users").doc(props.userObj.uid);
-
     }
     
     componentDidMount(){
         this.docRef.get().then((doc) => {
             if (doc.exists) {
                 this.userData = (doc.data());
-                console.log("SLIDER", this.userData);
+                this.setsliders();
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
-        });       
+        });
 
-        for(let i=0;i<this.slideritemRefArray.length;i++){
-            const getleftgap = this.slideritemRefArray[i].current.getBoundingClientRect().left-this.sliderRef.current.getBoundingClientRect().left;
-            const getrightgap = this.sliderRef.current.getBoundingClientRect().right-this.slideritemRefArray[i].current.getBoundingClientRect().right;
-
-            if(getleftgap<=100){
-                this.slideritemRefArray[i].current.style.marginTop = `${(100-getleftgap)}px`
-                this.slideritemRefArray[i].current.style.opacity = `${(getleftgap)/100/2+0.5}`
-            }
-            else if(getrightgap<=100){
-                this.slideritemRefArray[i].current.style.marginTop = `${(100-getrightgap)}px`
-                this.slideritemRefArray[i].current.style.opacity = `${(getrightgap)/100/2+0.5}`
-            }
-            else{
-                this.slideritemRefArray[i].current.style.marginTop = '0px'
-                this.slideritemRefArray[i].current.style.opacity = '1'
-            }
-        }
         this.sliderRef.current.addEventListener("mousedown", (e)=>
         {
             this.pressed = true;
@@ -72,7 +53,7 @@ export default class Slider extends Component{
             this.innerSliderRef.current.style.left = `${this.x - this.startX}px`;        
             this.checkBoundry();
             this.isdrag=true;
-            for(let i=0;i<this.slideritemRefArray.length;i++){
+            for(let i=0;i<this.state.numofitem;i++){
                 const getleftgap = this.slideritemRefArray[i].current.getBoundingClientRect().left-this.sliderRef.current.getBoundingClientRect().left;
                 const getrightgap = this.sliderRef.current.getBoundingClientRect().right-this.slideritemRefArray[i].current.getBoundingClientRect().right;
 
@@ -122,8 +103,65 @@ export default class Slider extends Component{
         }
     };
 
+    setsliders(){
+        let colorlist = ["#e8e874", "#83e874", "#74e8cf", 
+        "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"];
+        const date = new Date();
+        const viewYear = date.getFullYear();
+        const viewMonth = date.getMonth();
+        let emodatalist = [];
+        for(let i=1;i<=31;i++){
+            let idx = this.userData.emodataList.findIndex
+                (d=>d.year === viewYear && d.month === (viewMonth+1) && d.date === i);
+            if(idx!=-1) emodatalist.push(this.userData.emodataList[idx]);
+        }
+        
+        emodatalist.sort((a,b)=>
+        {
+            return b.score-a.score;
+        })
+        console.log(emodatalist.length);
+        this.setState({numofitem:emodatalist.length})
+        
+        for(let i=0;i<emodatalist.length;i++){
+            console.log(i);
+            const getleftgap = this.slideritemRefArray[i].current.getBoundingClientRect().left-this.sliderRef.current.getBoundingClientRect().left;
+            const getrightgap = this.sliderRef.current.getBoundingClientRect().right-this.slideritemRefArray[i].current.getBoundingClientRect().right;
+            const emoscore = emodatalist[i].score
+            let color=""
+            if(emoscore<-1){
+                color = colorlist[6];
+            } else if(emoscore<-0.7){
+                color = colorlist[5];
+            } else if(emoscore<-0.4){
+                color = colorlist[4];
+            } else if(emoscore<-0.0){
+                color = colorlist[3];
+            } else if(emoscore<0.3){
+                color = colorlist[2];
+            } else if(emoscore<0.7){
+                color = colorlist[1];
+            } else {
+                color = colorlist[0];
+            }
+            this.slideritemRefArray[i].current.style.background = color
+            if(getleftgap<=100){
+                this.slideritemRefArray[i].current.style.marginTop = `${(100-getleftgap)}px`
+                this.slideritemRefArray[i].current.style.opacity = `${(getleftgap)/100/2+0.5}`
+            }
+            else if(getrightgap<=100){
+                this.slideritemRefArray[i].current.style.marginTop = `${(100-getrightgap)}px`
+                this.slideritemRefArray[i].current.style.opacity = `${(getrightgap)/100/2+0.5}`
+            }
+            else{
+                this.slideritemRefArray[i].current.style.marginTop = '0px'
+                this.slideritemRefArray[i].current.style.opacity = '1'
+            }
+        }
+    }
+
     render() {
-        const k = Array(this.numofitem).fill(1);
+        const k = Array(this.state.numofitem).fill(1);
         return(
             <div>
                 <div className="slider" ref={this.sliderRef}>
