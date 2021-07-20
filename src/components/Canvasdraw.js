@@ -27,6 +27,7 @@ export default class Canvasdrawer extends Component{
     Initcanvasonclick = () => {
         if(this.state.whatanime!=null){
             this.setState({whatanime:null})
+            this.Calendarinform.current.settextcolor('#000000');
         }
         else{
 

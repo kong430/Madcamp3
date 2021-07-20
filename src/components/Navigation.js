@@ -14,7 +14,7 @@ const Navigation = ({ userObj }) => (
   <nav className = "nav">
     <ul className = "menu">
       <li><Link to="/" className = "menuLink">Home</Link></li>
-      <li><Link to="/profile" className = "menuLink">{userObj.displayName} 's Profile</Link></li>
+      <li><Link to="/profile" className = "menuLink">{userObj.displayName}의 일기들</Link></li>
       <li><Link to ="/total" className = "menuLink">All</Link></li>
       <button onClick={onLogoutClick} className = "LogOut">Log Out</button>
     </ul>
