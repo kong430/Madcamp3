@@ -24,4 +24,6 @@
 - React.js 사용
 ### Backend
 - node.js와 Firebase 사용
+### API
+- Papago 변역 API와 Google Natural Language API 사용
 
