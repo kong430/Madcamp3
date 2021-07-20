@@ -18,6 +18,7 @@ class Inputtextfield extends React.Component{
         //this.state.value = "";
         e.preventDefault();
         let text;
+        console.log();
         let score;
         let magnitude;
         await fetch('http://172.10.18.54:80/api',{
@@ -56,10 +57,8 @@ class Inputtextfield extends React.Component{
         let today = new Date();
         let year = today.getFullYear();
         let month = today.getMonth() + 1;
-        let date = today.getDate();
-        console.log(year, month + 1, date);
- 
-        userData.push({year: year, month: month, date: date, score:score, manitude:magnitude, text:text});
+        let date = today.getDate(); 
+        userData.push({year: year, month: month, date: date-13, score:score, manitude:magnitude, text:text});
         console.log(userData);
         dbService.collection("Users").doc(authService.currentUser.uid).set({
             emodataList: userData

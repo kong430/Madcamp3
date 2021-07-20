@@ -18,7 +18,11 @@ function Square(props) {
     const emoscore = props.emodata.score
     let color=""
     let anime
-    if(emoscore<-1){
+    if(emoscore==null){
+        color = "rgba(180,180,180,0.3)";
+        anime = tmp_props.animecontrol[0];
+    }
+    else if(emoscore<-1){
         color = colorlist[6];
         anime = tmp_props.animecontrol[1];
     } else if(emoscore<-0.7){
@@ -32,7 +36,7 @@ function Square(props) {
         anime = tmp_props.animecontrol[1];
     } else if(emoscore<0.3){
         color = colorlist[2];
-        anime = tmp_props.animecontrol[1];
+        anime = tmp_props.animecontrol[2];
     } else if(emoscore<0.7){
         color = colorlist[1];
         anime = tmp_props.animecontrol[2];
@@ -44,7 +48,7 @@ function Square(props) {
 
     return (
       <button onClick = {anime} className="square" style={{width:'8vw',height:'10vh', margin:'2px', textAlign:'top', backgroundColor:color, opacity:opacity}}>
-          <div style={{width:'6.5vw',height:'8vh', textAlign:'right', fontFamily:"titlehandwrites"}}>
+          <div style={{width:'6.5vw',height:'8vh', textAlign:'right', fontFamily:"titlehandwrites", fontWeight:"bold"}}>
             {props.value}
           </div>
       </button>
@@ -196,16 +200,16 @@ export default class Calendardraw extends React.Component{
         return (
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
-                    <button onClick={this.prevpress} style={{width:'60px', height:'30px', marginRight:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px', cursor: "pointer"}}>
-                        Prev
+                    <button onClick={this.prevpress} style={{color:`${this.textcolor}`, width:'80px', height:'30px', marginRight:'30px', background:'rgba(255,255,255,0)', borderRadius:'10px',
+                border:'0px', cursor: "pointer", fontSize:"15pt", fontFamily:"titlehandwrites", fontWeight:"bold"}}>
+                        지난달
                     </button>
-                    <span style = {{color:`${this.textcolor}`, fontFamily:"titlehandwrites"}}>
+                    <span style = {{color:`${this.textcolor}`, fontFamily:"titlehandwrites", fontSize:"20pt"}}>
                         {this.state.year}년 {this.state.month+1}월
                     </span>                
-                    <button onClick={this.nextpress} style={{width:'60px', height:'30px', marginLeft:'30px', background:'#FFD36E', borderRadius:'10px',
-                border:'0px', cursor: "pointer"}}>
-                        Next
+                    <button onClick={this.nextpress} style={{color:`${this.textcolor}`, width:'80px', height:'30px', marginLeft:'30px', background:'rgba(255,255,255,0)', borderRadius:'10px',
+                border:'0px', cursor: "pointer", fontSize:"15pt", fontFamily:"titlehandwrites", fontWeight:"bold"}}>
+                        다음달
                     </button>
                 </div>
                 <Calendar datelist={this.state.datelist} conditionlist={this.state.conditionlist} emodatalist={this.state.emodatalist} animecontrol={this.props.animecontrol}/>

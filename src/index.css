@@ -245,7 +245,7 @@ canvas {
   position: absolute;
   left: 0;
   top: 0;
-  height: 90%;
+  height: 100%;
   width: 3000px;
   display: grid;
   grid-template-columns: repeat(31, 50px);
@@ -255,10 +255,13 @@ canvas {
 }
 .slide {
   height: 100%;
-  margin-top: 0;
+  margin-top: 100vh;
   background-color: blue;
   transition: .5s;
   opacity: 1;
+  text-align: center;
+  font-size: 16pt;
+  font-family: "titlehandwrites";
 }
 
 .clickpage {
@@ -266,10 +269,12 @@ canvas {
   width: 200px;
   height: 60vh;
   left: 50%;
+  text-align: left;
   margin-left: -100px;
-  margin-top: 100vh;
+  margin-top: 150vh;
   background-color: chartreuse;
   transition: .5s;
+  font-family: "titlehandwrites";
 }
 
 .calendartext{
