@@ -8,7 +8,7 @@ import App from "components/App";
 
 var userData = null;
 
-const profile = ({ userObj, refreshUser}) => {
+const Profile = ({ userObj, refreshUser}) => {
   console.log("PROFILE", userObj.uid);
   var docRef = dbService.collection("Users").doc(userObj.uid);
 
@@ -25,9 +25,9 @@ const profile = ({ userObj, refreshUser}) => {
   });
 
   return (
-    <>
-      <Canvasdrawer userData = {userData}/>
-    </>
+    <div className = 'profile'>
+    <Canvasdrawer userData = {userData}/>
+    </div>
   );
 };
-export default profile;
+export default Profile;

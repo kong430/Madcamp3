@@ -152,13 +152,13 @@ textarea {
   position : absolute;
   justify-content: center;
   align-items: center;
-  min-height: 100%;
+  min-height: 80%;
   flex-direction: column;
   font-weight: bold;
   top: 50%;
   left: 50%;
   margin-left: -30vw;
-  margin-top: -50vh;
+  margin-top: -40vh;
 }
 
 
