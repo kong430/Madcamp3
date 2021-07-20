@@ -1,6 +1,8 @@
 import React from 'react';
 import { dbService, authService, firebaseInstance } from 'fbase';
 import { auth } from 'firebase';
+import { Link } from 'react-router-dom';
+import Profile from 'routes/Profile';
 class Inputtextfield extends React.Component{
     constructor(props){
         super(props);
@@ -75,7 +77,9 @@ class Inputtextfield extends React.Component{
             <form onSubmit={this.handleSubmit}>
                 <textarea value={this.state.value} onChange={this.handleChange} ref = "textarea" className="textbox" style={{fontFamily: "handwrites", fontSize:"25pt"}}/>
                 <div className = "submitDiv">
-                <button className = "submit" style={{fontFamily: "titlehandwrites", fontSize:"15pt", textAlign:"center"}}>완      료</button>
+                    <Link to="/profile" className = "menuLink">
+                <button className = "submit" onClick= {this.hasSubmitted} style={{fontFamily: "titlehandwrites", fontSize:"15pt", textAlign:"center"}}>완      료</button>
+                </Link>
                 </div>
             </form>
         );
