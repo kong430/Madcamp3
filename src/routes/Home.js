@@ -7,9 +7,9 @@ import Slider from "components/Slider";
 const Home = ({ userObj }) => {
   
   return (
-    
   <div className = "home">
-    <Slider/>
+  <h1 className = "question"> 오늘 하루는 어땠나요?</h1>
+  <Inputtextfield/>
   </div>
   )
 };

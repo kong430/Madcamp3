@@ -16,6 +16,11 @@ body, html, .App, #root, .outer {
   height: 100%;
 }
 
+
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
 .outer {
   display: flex;
   justify-content: center;
@@ -110,6 +115,7 @@ body, html, .App, #root, .outer {
   list-style-type: none;
   align-items: center;
   align-content: center;
+  font-family: "titlehandwrites";
 }
 
 .menu .menuLink{
@@ -133,6 +139,7 @@ body, html, .App, #root, .outer {
   text-transform: uppercase;
   border: none;
   outline: none;
+  font-family: "titlehandwrites";
   cursor: pointer;
 } 
 
@@ -154,6 +161,7 @@ body, html, .App, #root, .outer {
   margin-top: -50vh;
 }
 
+
 .textbox{
   position: absolute;
   width: 46vw;
@@ -174,7 +182,7 @@ body, html, .App, #root, .outer {
 .submit{
   position: absolute;
   width: 46vw;
-  height: 4vh;
+  height: 6vh;
   top: 50%;
   left: 50%;
   margin-left: -23vw;
@@ -192,6 +200,7 @@ body, html, .App, #root, .outer {
   font-size: 2em;
   margin: 20vh 0px 0px 0px;
   font-weight: bold;
+  font-family: "titlehandwrites";
   text-align: center;
   animation: fadein 3s;
 }
@@ -260,4 +269,18 @@ canvas {
   margin-top: 100vh;
   background-color: chartreuse;
   transition: .5s;
+}
+
+.calendartext{
+  color:black
+}
+
+@font-face {
+  font-family: "handwrites"; 
+  src: url("./fonts/handwrites.ttf");
+}
+
+@font-face {
+  font-family: "titlehandwrites"; 
+  src: url("./fonts/Titlehandwrites.ttf");
 }

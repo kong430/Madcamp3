@@ -30,6 +30,7 @@ export default class Canvasdrawer extends Component{
     Wavecanvasonclick = () => {
         if(this.state.whatanime!='wave'){
             this.setState({whatanime:'wave'})
+            this.Calendarinform.current.settextcolor('#000000');
         }
         else{
             this.Wave.current.stopanime();
@@ -39,9 +40,11 @@ export default class Canvasdrawer extends Component{
     Happyanimeonclick = () => {
         if(this.state.whatanime!='happy'){
             this.setState({whatanime:'happy'})
+            this.Calendarinform.current.settextcolor('#000000');
         }
         else if(this.state.whatanime=='happy'){
             this.setState({whatanime:'nighthappy'})
+            this.Calendarinform.current.settextcolor('#ffffff');
         }
     }
 
