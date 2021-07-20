@@ -1,8 +1,9 @@
 import React, { createRef } from "react";
 import { Component } from "react";
+import { authService, dbService } from "fbase";
 
 export default class Slider extends Component{
-    constructor(){
+    constructor(props){
         super();
         this.sliderRef = createRef();
         this.innerSliderRef = createRef();
@@ -18,9 +19,23 @@ export default class Slider extends Component{
         this.x=0;
         this.isdrag=false;
         this.state={clickedindex : 0}
+        this.docRef = dbService.collection("Users").doc(props.userObj.uid);
+
     }
     
     componentDidMount(){
+        this.docRef.get().then((doc) => {
+            if (doc.exists) {
+                this.userData = (doc.data());
+                console.log("SLIDER", this.userData);
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document!");
+            }
+        }).catch((error) => {
+            console.log("Error getting document:", error);
+        });       
+
         for(let i=0;i<this.slideritemRefArray.length;i++){
             const getleftgap = this.slideritemRefArray[i].current.getBoundingClientRect().left-this.sliderRef.current.getBoundingClientRect().left;
             const getrightgap = this.sliderRef.current.getBoundingClientRect().right-this.slideritemRefArray[i].current.getBoundingClientRect().right;

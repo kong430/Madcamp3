@@ -1,11 +1,14 @@
 import React from "react";
-import { authService, firebaseInstance } from "fbase";
+import { dbService, authService, firebaseInstance } from "fbase";
 import '../index';
+import Slider from "components/Slider";
+
+var userData = null;
 
 const Total = ({ userObj }) => {
   return (
     <>
-    <text>this is text</text>
+    <Slider userObj = {userObj}></Slider>
     </>
   );
 };

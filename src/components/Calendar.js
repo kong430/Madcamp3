@@ -183,7 +183,7 @@ export default class Calendardraw extends React.Component{
                 var data = this.userData;        
                 var idx = data.emodataList.findIndex
                 (d=>d.year === this.state.year && d.month === (this.state.month+1) && d.date === date)
-                if (idx != -1) {
+                if (idx != -1 && this.state.conditionlist[i] == 'this') {
                     this.state.emodatalist[i].score = this.userData.emodataList[idx].score;
                     this.state.emodatalist[i].text = this.userData.emodataList[idx].text;
                 }
