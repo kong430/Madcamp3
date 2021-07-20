@@ -49,22 +49,49 @@ class Inputtextfield extends React.Component{
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document!");
+                dbService.collection("Users").doc(authService.currentUser.uid)
+                .set({
+                    emodataList : [{
+                        year: null,
+                        month: null,
+                        date: null,
+                        score: null,
+                        magnitude: null
+                    }]
+                })
             }
         }).catch((error) => {
             console.log("Error getting document:", error);
         });
+        
+
+        console.log("GETUSERDATA", userData)
 
         let today = new Date();
         let year = today.getFullYear();
         let month = today.getMonth() + 1;
         let date = today.getDate(); 
-        userData.push({year: year, month: month, date: date-13, score:score, manitude:magnitude, text:text});
-        console.log(userData);
-        dbService.collection("Users").doc(authService.currentUser.uid).set({
-            emodataList: userData
-        }).then(() => {
-            console.log("success");
-        })
+        if (userData != null){
+            userData.push({year: year, month: month, date: date, score:score, manitude:magnitude, text:text});
+            dbService.collection("Users").doc(authService.currentUser.uid).set({
+                emodataList: userData
+            }).then(() => {
+                console.log("success");
+            })
+        }
+        else{
+            dbService.collection("Users").doc(authService.currentUser.uid)
+            .set({
+                emodataList : [{
+                    year: year,
+                    month: month,
+                    date: date,
+                    score: score,
+                    magnitude: magnitude
+                }]
+            })
+        }
+
     }
  
     handleChange(e){
