@@ -70,9 +70,9 @@ class Inputtextfield extends React.Component{
     render(){
         return (
             <form onSubmit={this.handleSubmit}>
-                <textarea value={this.state.value} onChange={this.handleChange} className="textbox"/>
+                <textarea value={this.state.value} onChange={this.handleChange} className="textbox" style={{fontFamily: "handwrites", fontSize:"25pt"}}/>
                 <div className = "submitDiv">
-                <button className = "submit">완      료</button>
+                <button className = "submit" style={{fontFamily: "titlehandwrites", fontSize:"15pt", textAlign:"center"}}>완      료</button>
                 </div>
             </form>
         );

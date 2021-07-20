@@ -1,26 +1,23 @@
-import React, { createRef } from "react";
+import React, { createRef} from "react";
 import { Component } from "react";
 import Happyanime from "./Happyanime";
-import Wavemaker from "./Wave";
 import Calendardraw from "./Calendar";
+import Nightanime from "./Nightanime";
+import Wavemaker from "./Wave";
 
 export default class Canvasdrawer extends Component{
     constructor(){
         super();
-        this.Wavecanvas = createRef();
+        this.canvas = createRef();
         this.Wave = createRef();
-        this.Happycanvas = createRef();
         this.Happy = createRef();
         this.Calendarinform = createRef();
-        this.state = {
-            whatanime : null
-        }
         this.Wavecanvasonclick = this.Wavecanvasonclick.bind(this);
         this.Initcanvasonclick = this.Initcanvasonclick.bind(this);
         this.Happyanimeonclick = this.Happyanimeonclick.bind(this);
         this.firstchange = true;
+        this.state = {whatanime:null}
     }
-
     Initcanvasonclick = () => {
         if(this.state.whatanime!=null){
             this.setState({whatanime:null})
@@ -33,6 +30,7 @@ export default class Canvasdrawer extends Component{
     Wavecanvasonclick = () => {
         if(this.state.whatanime!='wave'){
             this.setState({whatanime:'wave'})
+            this.Calendarinform.current.settextcolor('#000000');
         }
         else{
             this.Wave.current.stopanime();
@@ -42,9 +40,11 @@ export default class Canvasdrawer extends Component{
     Happyanimeonclick = () => {
         if(this.state.whatanime!='happy'){
             this.setState({whatanime:'happy'})
+            this.Calendarinform.current.settextcolor('#000000');
         }
-        else{
-            
+        else if(this.state.whatanime=='happy'){
+            this.setState({whatanime:'nighthappy'})
+            this.Calendarinform.current.settextcolor('#ffffff');
         }
     }
 
@@ -54,6 +54,7 @@ export default class Canvasdrawer extends Component{
         if(this.state.whatanime == null){
             return(
                 <div>
+                    <Blankcanvas/>
                     <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>
                 </div> 
             )            
@@ -67,12 +68,38 @@ export default class Canvasdrawer extends Component{
             )            
         }
         else if(this.state.whatanime == 'happy'){
-            return (
+            return(
                 <div>
-                    <Happyanime canvasref = {this.Happycanvas}/>
+                    <Happyanime canvasref = {this.canvas}/>
+                    <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform}/>   
+                </div>            
+            )            
+        }
+        else if(this.state.whatanime == 'nighthappy'){
+            return(
+                <div>
+                    <Nightanime canvasref = {this.canvas}/>
                     <Calendardraw animecontrol={this.onclicklist} ref = {this.Calendarinform} userData = {this.props.userData}/>
                 </div> 
             )                       
         }
     } 
+}
+
+class Blankcanvas extends Component{
+    constructor(){
+        super();
+        this.canvasRef = createRef();
+    }
+
+    componentDidMount(){
+        this.canvas = this.canvasRef.current
+        this.ctx = this.canvasRef.current.getContext("2d")
+    }
+
+    render(){
+        return(
+            <canvas ref={this.canvasRef} />
+        )
+    }
 }

@@ -31,6 +31,3 @@ const Profile = ({ userObj, refreshUser}) => {
   );
 };
 export default Profile;
-
-console.log("profile!!!!!!!!!!!!!!");
-

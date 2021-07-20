@@ -13,7 +13,8 @@ var tmp_props;
 
 function Square(props) {
     if (props.animecontrol!= null) tmp_props = props;
-    let colorlist = ["#74e887", "#74e89f", "#74e8cf", 
+    //console.log("PROPS", tmp_props);
+    let colorlist = ["#e8e874", "#83e874", "#74e8cf", 
     "#74cfe8", "#74b4e8", "#748be8", "#7a74e8"]
     const emoscore = props.emodata.score
     let color=""
@@ -76,10 +77,6 @@ class Calendar extends React.Component{
 export default class Calendardraw extends React.Component{
     constructor(props) {
         super(props);
-        console.log("CONSTRUCTOR!!!!!!!!!!!!!");
-        console.log("CCCCCCC", this.props.userData);
-
-
         const date = new Date();
         const viewYear = date.getFullYear();
         const viewMonth = date.getMonth();
@@ -90,10 +87,15 @@ export default class Calendardraw extends React.Component{
           month : viewMonth,
           year : viewYear,
         }
-        //console.log(typeof(this.state));
         this.prevpress=this.prevpress.bind(this)
         this.nextpress=this.nextpress.bind(this)
+        this.setDate()
+        this.textcolor = '#000000'
     };
+
+    settextcolor(color){
+        this.textcolor = color
+    }
 
     prevpress(){
         if(this.state.month!==0){
@@ -102,6 +104,7 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:11, year:this.state.year-1})
         }
+        this.setDate()
     }
 
     nextpress(){
@@ -111,10 +114,10 @@ export default class Calendardraw extends React.Component{
         else{
             this.setState({month:0, year:this.state.year+1})
         }
+        this.setDate()
     }
 
     setDate() {
-        console.log("SETDATE!!!!!!!!!!!!!");
         console.log(this.props);
         const viewYear = this.state.year
         const viewMonth = this.state.month
@@ -173,14 +176,12 @@ export default class Calendardraw extends React.Component{
                 if (idx != -1) {
                     this.state.emodatalist[i].score = this.props.userData.emodataList[idx].score;
                     this.state.emodatalist[i].text = this.props.userData.emodataList[idx].text;
-                    console.log("SCORE", this.state.emodatalist[i].score);
                 }
               }
             }
         )
     }
     render () {
-        this.setDate()
         return (
             <div className = "calendar">
                 <div style={{marginTop:'30px'}}>
@@ -188,7 +189,9 @@ export default class Calendardraw extends React.Component{
                 border:'0px', cursor: "pointer"}}>
                         Prev
                     </button>
-                    {this.state.year}년 {this.state.month+1}월
+                    <span style = {{color:`${this.textcolor}`}}>
+                        {this.state.year}년 {this.state.month+1}월
+                    </span>                
                     <button onClick={this.nextpress} style={{width:'60px', height:'30px', marginLeft:'30px', background:'#FFD36E', borderRadius:'10px',
                 border:'0px', cursor: "pointer"}}>
                         Next
