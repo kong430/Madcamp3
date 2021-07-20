@@ -13,6 +13,7 @@ class Inputtextfield extends React.Component{
     
     async handleSubmit(e){
         console.log('value - ' + this.state.value);
+        //this.state.value = "";
         e.preventDefault();
         let text;
         let score;
@@ -31,6 +32,9 @@ class Inputtextfield extends React.Component{
               magnitude = parseFloat(res.magnitude);
               console.log(text,score,magnitude);
           });
+
+        var textarea = this.refs.textarea;
+        textarea.value = "";
 
         var docRef = dbService.collection("Users").doc(authService.currentUser.uid);
         var userData = null;
@@ -64,13 +68,12 @@ class Inputtextfield extends React.Component{
  
     handleChange(e){
         this.setState({value: e.target.value});
-        console.log(e.target.value)
     }
  
     render(){
         return (
             <form onSubmit={this.handleSubmit}>
-                <textarea value={this.state.value} onChange={this.handleChange} className="textbox" style={{fontFamily: "handwrites", fontSize:"25pt"}}/>
+                <textarea value={this.state.value} onChange={this.handleChange} ref = "textarea" className="textbox" style={{fontFamily: "handwrites", fontSize:"25pt"}}/>
                 <div className = "submitDiv">
                 <button className = "submit" style={{fontFamily: "titlehandwrites", fontSize:"15pt", textAlign:"center"}}>완      료</button>
                 </div>
